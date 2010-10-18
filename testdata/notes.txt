@@ -1,0 +1,18 @@
+if the node we are about to append to is an IfBlock:
+	if the ifblock has no execnode set:
+		push( appendTo )
+		appendTo.setExecuteNode(node)
+		appendTo = node
+	if the ifblock has an execnode set already:
+		appendTo.setNextNode(node)
+		appendTo = node
+
+	if the current node is an endifblock:
+		ifblock = stack.pop()
+		appendTo = ifblock
+	
+	
+
+execute:
+
+
