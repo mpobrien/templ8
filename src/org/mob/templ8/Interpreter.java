@@ -24,23 +24,23 @@ public class Interpreter{
 					Node topNode = nodeStack.peek();
 					if( topNode instanceof IfBlock ){
 						node = nodeStack.pop().getNextNode();
-					}else if( topNode instanceof ForBlock){
+					}else if( topNode instanceof AbstractForBlock){
 						node = topNode.execute(ec);
 						if( node instanceof EndForBlock ){
 							node = nodeStack.pop().getNextNode();
-							System.out.println("going to next node: " + node);
+// 							System.out.println("going to next node: " + node);
 							continue;
 						}
 					}
 				}
 			}
-			if( node instanceof IfBlock || node instanceof ForBlock ){
+			if( node instanceof IfBlock || node instanceof AbstractForBlock ){
 				nodeStack.push(node);
 			}
 
 			if( node == null ) break;
 			node = node.execute(ec);
-			System.out.println("next: " + node);
+// 			System.out.println("next: " + node);
 		}
 		ec.flush();
 	}

@@ -3,31 +3,14 @@ import java.util.regex.*;
 import java.util.*;
 import java.io.*;
 
-public class ForBlock extends BlockNode{
-	// for k, v in map
-	//
-	// for i in list
-	//
-	// for k in set
+public class ForBlock extends AbstractForBlock{
 
-	public String render(){ return ""; }
-
-	private Node executeNode;
-	private final String collectionName;
 	private final String varName;
 
 	public ForBlock(String varName, String collectionName){
+		super(collectionName);
 		this.varName = varName;
-		this.collectionName = collectionName;
 	}
-
-	public Node getExecuteNode(){//{{{
-		return this.executeNode;
-	}//}}}
-
-	public void setExecuteNode(Node node){//{{{
-		this.executeNode = node;
-	}//}}}
 
 	@Override
 	public Node execute(ExecutionContext ec) throws IOException{//{{{
@@ -55,11 +38,6 @@ public class ForBlock extends BlockNode{
 			return new EndForBlock();
 		}
 
-	}//}}}
-
-	@Override
-	public String debug(){//{{{
-		return "forblock";
 	}//}}}
 
 }

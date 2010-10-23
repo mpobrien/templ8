@@ -27,7 +27,7 @@ public class LineTokenizer{
 						if(lineNumber >= sourceLines.length){
 							return endOfData();
 						}else{
-							Tokenizer t = new Tokenizer(sourceLines[lineNumber], lineNumber+1);
+							Tokenizer t = new Tokenizer(sourceLines[lineNumber] + "\n", lineNumber+1);
 							lineNumber++;
 							return t.tokens();
 						}

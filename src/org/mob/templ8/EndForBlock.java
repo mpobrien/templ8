@@ -13,9 +13,9 @@ public class EndForBlock extends BlockNode{
 		return this.getNextNode();
 	}
 
-	@Override
-	public String debug(){
-		return " EndForBlock, nnextNode = " + (this.getNextNode() != null ? this.getNextNode().debug() : "(null)"); 
-	}
+// 	@Override
+// 	public String debug(){
+// 		return " EndForBlock, nnextNode = " + (this.getNextNode() != null ? this.getNextNode().debug() : "(null)"); 
+// 	}
 }
 

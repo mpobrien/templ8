@@ -69,12 +69,12 @@ public class IfBlock extends BlockNode{
 		}
 	}
 
-	@Override
-	public String debug(){
-		return " IfBlock, execNode = " + (this.getExecuteNode() != null ? this.getExecuteNode().debug() : "(null)") + "\n" + 
-				"         nextNode = " + (this.getNextNode() != null ? this.getNextNode().debug() : "(null)"); 
-	}
-
+// 	@Override
+// 	public String debug(){
+// 		return " IfBlock, execNode = " + (this.getExecuteNode() != null ? this.getExecuteNode().debug() : "(null)") + "\n" + 
+// 				"         nextNode = " + (this.getNextNode() != null ? this.getNextNode().debug() : "(null)"); 
+// 	}
+// 
 
 
 }

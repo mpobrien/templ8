@@ -21,6 +21,8 @@ public class Compiler{
  			}
 			
 			//this is a mess. refactor it into something sexy.
+			//
+			// node, appendTo, stack ---- > node, appendTo
 		
 			System.out.println("node: " + node + ", " + appendTo);
 			if( node instanceof EndForBlock ){
@@ -80,23 +82,17 @@ public class Compiler{
 					appendTo = node;
 				}
 				continue;
-			} else if( appendTo instanceof ForBlock ){
-				System.out.println("2222222222222222");
-				ForBlock forblock = (ForBlock)appendTo;
+			} else if( appendTo instanceof AbstractForBlock ){
+				AbstractForBlock forblock = (AbstractForBlock)appendTo;
 				if( forblock.getExecuteNode() == null ){
-					System.out.println("111111111");
 					nodeStack.push(forblock);
 					forblock.setExecuteNode(node);
 					appendTo = node;
 				}else{
-					System.out.println("1444");
 					forblock.setNextNode(node);
 					appendTo = node;
 				}
-				System.out.println("next: " +forblock.getNextNode());
-				System.out.println("exec: " +forblock.getExecuteNode());
 			} else{
-				System.out.println("33333333333");
 				appendTo.setNextNode(node);
 				appendTo = node;
 				continue;
@@ -182,7 +178,7 @@ public class Compiler{
 
 		System.out.println( "\n\n");
 		System.out.println(head);
-		System.out.println(head.debug());
+		//System.out.println(head.debug());
 	}
 
 

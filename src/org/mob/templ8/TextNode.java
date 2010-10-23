@@ -17,12 +17,11 @@ public class TextNode extends Node{
 	@Override
 	public Node execute(ExecutionContext ec) throws IOException{
 		ec.write(this.text);
-		ec.write("\n");
 		return this.getNextNode();
 	}
 	
-	public String debug(){
-		return " (TextNode) -> " + (this.getNextNode() != null ? this.getNextNode().debug() : "(null)") + "\n";
-	}
-
+// 	public String debug(){
+// 		return " (TextNode) -> " + (this.getNextNode() != null ? this.getNextNode().debug() : "(null)") + "\n";
+// 	}
+// 
 }

@@ -6,7 +6,7 @@ public class ExecutionContext{
 
     private Writer outputWriter;
 	private Map<String, Object> objects = new HashMap<String, Object>();
-	private Map<ForBlock, Iterator> loops = new HashMap<ForBlock, Iterator>();
+	private Map<AbstractForBlock, Iterator> loops = new HashMap<AbstractForBlock, Iterator>();
 
 	public ExecutionContext(Writer outputWriter){//{{{
 		this.outputWriter = outputWriter;
@@ -36,15 +36,15 @@ public class ExecutionContext{
 		this.outputWriter.flush();
 	}//}}}
 
-	public Iterator getIteratorForBlock(ForBlock forblock){
+	public Iterator getIteratorForBlock(AbstractForBlock forblock){
 		return this.loops.get(forblock);
 	}
 
-	public void setIteratorForBlock(ForBlock forblock, Iterator it){
+	public void setIteratorForBlock(AbstractForBlock forblock, Iterator it){
 		this.loops.put(forblock, it);
 	}
 
-	public void terminateForBlockIterator(ForBlock forblock){
+	public void terminateForBlockIterator(AbstractForBlock forblock){
 		this.loops.remove(forblock);
 	}
 }

@@ -19,7 +19,7 @@ public abstract class Node{
 
 	public abstract Node execute(ExecutionContext ec) throws IOException;
 
-	public abstract String debug();
+// 	public abstract String debug();
 
 	public int getLineNumber(){
 		return this.lineNumber;
@@ -28,5 +28,7 @@ public abstract class Node{
 	public void setLineNumber(int lineNumber){
 		this.lineNumber = lineNumber;
 	}
+
+//     public abstract CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack);
 
 }

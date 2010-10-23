@@ -7,6 +7,7 @@ import java.util.*;
 public class Tokenizer{
 
 	private static final Pattern TMPL8_PATTERN = Pattern.compile("(.*?)?\\{(\\{|%)(.+?)(\\}|%).*", Pattern.DOTALL);
+	//private static final Pattern TMPL8_PATTERN = Pattern.compile("(.*?)?\\{(\\{|%)(.+?)(\\}|%).*", Pattern.DOTALL);
 	private static final String PERCENT = "%";
 	private static final String OPENSTACHE = "{";
 	private static final String CLOSESTACHE = "}";

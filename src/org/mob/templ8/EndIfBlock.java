@@ -13,9 +13,9 @@ public class EndIfBlock extends BlockNode{
 		return this.getNextNode();
 	}
 
-	@Override
-	public String debug(){
-		return " EndIfBLock, nnextNode = " + (this.getNextNode() != null ? this.getNextNode().debug() : "(null)"); 
-	}
+// 	@Override
+// 	public String debug(){
+// 		return " EndIfBLock, nnextNode = " + (this.getNextNode() != null ? this.getNextNode().debug() : "(null)"); 
+// 	}
 }
 
