@@ -12,13 +12,14 @@ public class BlockFactory{
 	private static final String BLOCK_ENDFOR = "endfor";        
 
 	private static final Pattern FOR_PATTERN = Pattern.compile("\\s*for\\s+(\\w+)\\s+in\\s+(\\w+)\\s*");
+	private static final Pattern IF_PATTERN = Pattern.compile("\\s*(if)\\s*(.*)\\s*");
  //Pattern.compile("\\s*for\\s+(\\w+)in\\s+(.+)\\s*");
 
-    public static BlockNode create(String blockText){
+    public static BlockNode create(String blockText){//{{{
 		String elements[] = blockText.trim().split("\\s+");
 		String blockType = elements[0].toLowerCase();
 		if( blockType.equals(BLOCK_IF) ){
-			return new IfBlock(blockText);
+			return new IfBlock(blockText.trim().substring(2));
 		}else if( blockType.equals(BLOCK_ELSE) ){
 			return new ElseBlock();
 		}else if( blockType.equals(BLOCK_ELSEIF) ){
@@ -38,6 +39,6 @@ public class BlockFactory{
 			return new EndForBlock();
 		}
 		return null; //TODO
-	}
+	}//}}}
 
 }

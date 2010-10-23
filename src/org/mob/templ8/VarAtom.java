@@ -12,7 +12,6 @@ public class VarAtom extends Atom{
 
 	@Override
 	public Object getValue(ExecutionContext ec){
-		System.out.println("i am getting: [" + this.varName + "]");
 		return ec.getObject(this.varName);
 	}
 
