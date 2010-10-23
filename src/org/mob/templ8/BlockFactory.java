@@ -20,11 +20,11 @@ public class BlockFactory{
 		String elements[] = blockText.trim().split("\\s+");
 		String blockType = elements[0].toLowerCase();
 		if( blockType.equals(BLOCK_IF) ){
-			return new IfBlock(blockText.trim().substring(2));
+			return new IfBlock(blockText.trim().substring(2).trim());
 		}else if( blockType.equals(BLOCK_ELSE) ){
 			return new ElseBlock();
 		}else if( blockType.equals(BLOCK_ELSEIF) ){
-			return new ElseBlock();
+			return new ElseBlock(blockText.trim().substring(6).trim());
 		}else if( blockType.equals(BLOCK_ENDIF) ){
 			return new EndIfBlock();
 		} else if( blockType.equals(BLOCK_FOR) ){

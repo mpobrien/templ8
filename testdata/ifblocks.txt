@@ -1,0 +1,12 @@
+{% if x1 == 1 %}
+    {% if x2 == 3 %}
+        IF
+    {% elseif x2 == 45 %}
+         ELSEIF
+    {% else %}
+        ELSE
+    {% endif %}
+YES
+{% else %}
+NO
+{% endif %}

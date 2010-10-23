@@ -19,6 +19,16 @@ public class TextNode extends Node{
 		ec.write(this.text);
 		return this.getNextNode();
 	}
+
+     public CompilerCommand preProcessCompileStack(Node node, Node appendTo, Stack<Node> nodeStack){
+		return CompilerCommand.identity(node, appendTo);
+	 }
+
+     public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack){
+		this.setNextNode(node);
+		return new CompilerCommand(null, node, true);
+	 }
+
 	
 // 	public String debug(){
 // 		return " (TextNode) -> " + (this.getNextNode() != null ? this.getNextNode().debug() : "(null)") + "\n";

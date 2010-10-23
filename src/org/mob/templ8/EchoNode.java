@@ -29,5 +29,14 @@ public class EchoNode extends Node{
 // 	public String debug(){
 // 		return " EchoNode, nextNode = " + (this.getNextNode() != null ? this.getNextNode().debug() : "(null)"); 
 // 	}
+     public CompilerCommand preProcessCompileStack(Node node, Node appendTo, Stack<Node> nodeStack){
+		return CompilerCommand.identity(node, appendTo);
+	 }
+
+     public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack){
+		this.setNextNode(node);
+		return new CompilerCommand(null, node, true);
+	 }
+
 
 }
