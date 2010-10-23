@@ -17,20 +17,30 @@ public class Interpreter{
 		Node node = head;
 		StringWriter sw = new StringWriter();
 		while( true ){
-			//System.out.println("node is: " + node);
 			if( node == null ){
 				if( nodeStack.getSize() == 0 ){
 					break;
 				}else{
-					node = nodeStack.pop().getNextNode();
+					Node topNode = nodeStack.peek();
+					if( topNode instanceof IfBlock ){
+						node = nodeStack.pop().getNextNode();
+					}else if( topNode instanceof ForBlock){
+						node = topNode.execute(ec);
+						if( node instanceof EndForBlock ){
+							node = nodeStack.pop().getNextNode();
+							System.out.println("going to next node: " + node);
+							continue;
+						}
+					}
 				}
 			}
-			if( node instanceof IfBlock ){
+			if( node instanceof IfBlock || node instanceof ForBlock ){
 				nodeStack.push(node);
 			}
 
 			if( node == null ) break;
 			node = node.execute(ec);
+			System.out.println("next: " + node);
 		}
 		ec.flush();
 	}

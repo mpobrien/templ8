@@ -11,7 +11,8 @@ public class BlockFactory{
 	private static final String BLOCK_FOR    = "for";        
 	private static final String BLOCK_ENDFOR = "endfor";        
 
-	private static final Pattern FOR_PATTERN = Pattern.compile("\\s*for\\s+(\\w+)in\\s+(.+)\\s*");
+	private static final Pattern FOR_PATTERN = Pattern.compile("\\s*for\\s+(\\w+)\\s+in\\s+(\\w+)\\s*");
+ //Pattern.compile("\\s*for\\s+(\\w+)in\\s+(.+)\\s*");
 
     public static BlockNode create(String blockText){
 		String elements[] = blockText.trim().split("\\s+");
@@ -27,8 +28,10 @@ public class BlockFactory{
 		} else if( blockType.equals(BLOCK_FOR) ){
 			Matcher m = FOR_PATTERN.matcher(blockText);
 			if( !m.matches() ){
+				System.out.println("NO");
 				return null; // throw compile exception, badly formed for block
 			}else{
+				System.out.println("UEAR");
 				return new ForBlock(m.group(1), m.group(2) );
 			}
 		}else if( blockType.equals(BLOCK_ENDFOR) ){

@@ -36,7 +36,7 @@ public class ForBlock extends BlockNode{
 			Atom collectionAtom = AtomFactory.getAtom(collectionName);
 			Object o = collectionAtom.getValue(ec);
 			if( o == null ){
-				return this.executeNode;
+				return this.nextNode;
 			}
 			if( !(o instanceof Collection) ){
 				throw new IOException(); // TOOD better exception here.
@@ -48,10 +48,11 @@ public class ForBlock extends BlockNode{
 		if( it.hasNext() ){
 			Object o = it.next();
 			ec.setObject(varName, o);
+			System.out.println("returning: " + this.executeNode);
 			return this.executeNode;
 		}else{
 			ec.terminateForBlockIterator(this);
-			return this.nextNode;
+			return new EndForBlock();
 		}
 
 	}//}}}

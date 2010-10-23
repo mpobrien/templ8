@@ -21,11 +21,20 @@ public class Compiler{
  			}
 			
 			//this is a mess. refactor it into something sexy.
+		
+			System.out.println("node: " + node + ", " + appendTo);
+			if( node instanceof EndForBlock ){
+				appendTo = nodeStack.pop();
+				System.out.println("endfor pop appendTo: " +  appendTo);
+				continue;
+			}
 
 			if( node instanceof ElseBlock ){
 				appendTo = nodeStack.peek();
+				//TODO check that appendTo is the right type of node!
 			}else if ( node instanceof EndIfBlock ){
 				appendTo = nodeStack.pop();
+				//TODO check that appendTo is the right type of node!
 				continue;
 			}
 			
@@ -71,8 +80,23 @@ public class Compiler{
 					appendTo = node;
 				}
 				continue;
+			} else if( appendTo instanceof ForBlock ){
+				System.out.println("2222222222222222");
+				ForBlock forblock = (ForBlock)appendTo;
+				if( forblock.getExecuteNode() == null ){
+					System.out.println("111111111");
+					nodeStack.push(forblock);
+					forblock.setExecuteNode(node);
+					appendTo = node;
+				}else{
+					System.out.println("1444");
+					forblock.setNextNode(node);
+					appendTo = node;
+				}
+				System.out.println("next: " +forblock.getNextNode());
+				System.out.println("exec: " +forblock.getExecuteNode());
 			} else{
-				System.out.println("mob5");
+				System.out.println("33333333333");
 				appendTo.setNextNode(node);
 				appendTo = node;
 				continue;

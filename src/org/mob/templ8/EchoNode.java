@@ -18,8 +18,9 @@ public class EchoNode extends Node{
 		Atom atom = AtomFactory.getAtom(this.expression);
 		System.out.println("atom: " + atom);
 		Object v = atom.getValue(ec);
+		System.out.println("atom value is: " + v);
 		if( v != null ){
-			ec.write( v.toString());
+			ec.write( v.toString() );
 		}
 		return this.getNextNode();
 	}

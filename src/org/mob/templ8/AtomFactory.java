@@ -8,6 +8,7 @@ public class AtomFactory{
 	private static final String numericAtom = "\\d+";
 	private static final Pattern stringAtom =  Pattern.compile("^\'(.*)\'$");
 	private static final Pattern collectionAtom =  Pattern.compile("(\\w+)\\[(.+)\\]");
+	private static final String varAtom = "\\w+";
 
 	public static Atom getAtom(String atomText){
 		Matcher m = stringAtom.matcher(atomText);
@@ -20,8 +21,9 @@ public class AtomFactory{
 			String keyString = collectionM.group(2);
 			Atom keyAtom = getAtom(keyString);
 			return new CollectionAtom(collectionM.group(1), keyAtom);
+		}else if(atomText.matches(varAtom)){
+			return new VarAtom(atomText);
 		}else{
-			System.out.println("couldn't match atom");
 			return null;
 		}
 	}
