@@ -5,6 +5,7 @@
         <property name="classes.dir" value="build"/>
         <property name="conf.dir" value="conf"/>
         <property name="dist.dir" value="dist"/>
+        <property name="release.dir" value="release"/>
     </target>
     <target name="clean" depends="init">
         <deltree dir="${classes.dir}"/>
@@ -28,6 +29,9 @@
         </exec>
     </target>
 
+    <target name="jar" depends="compile">
+        <jar destfile="${release.dir}/templ8.jar" basedir="." includes="**/*.class" />
+    </target>
     <!--target name="runserver">
         <java classname="com.mob.bootstrap.Jetty">
              <classpath>

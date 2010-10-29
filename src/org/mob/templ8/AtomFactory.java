@@ -8,7 +8,8 @@ public class AtomFactory{
 	private static final String numericAtom = "\\d+";
 	private static final Pattern stringAtom =  Pattern.compile("^\'(.*)\'$");
 	private static final Pattern collectionAtom =  Pattern.compile("(\\w+)\\[(.+)\\]");
-	private static final String varAtom = "\\w+";
+	private static final String varAtom = "[\\w\\.]";
+	private static final String methodsAtom = "(\\w+\\.?(\\w+)?)+"; // matches aaa.bbb.ccc etc
 
 	public static Atom getAtom(String atomText){
 		Matcher m = stringAtom.matcher(atomText);

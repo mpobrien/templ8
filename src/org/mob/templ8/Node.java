@@ -12,7 +12,6 @@ public abstract class Node{
 	//public abstract void appendNode(Node n);
 
 	public void setNextNode(Node n){
-		System.out.println("Appending " + n + " to " + this);
 		this.nextNode = n; 
 	}
 	public Node getNextNode(){return this.nextNode;}
