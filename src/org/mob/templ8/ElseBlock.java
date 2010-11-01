@@ -1,5 +1,6 @@
 package org.mob.templ8;
 import java.util.regex.*;
+import java.util.*;
 import java.io.*;
 
 public class ElseBlock extends BlockNode{
@@ -48,7 +49,7 @@ public class ElseBlock extends BlockNode{
 	}//}}}
 
 	@Override
-	public Node execute(ExecutionContext ec) throws IOException{
+	public Node execute(ExecutionContext ec, Template tmpl) throws IOException{
 		if( this.expression == null ){
 			return this.getExecuteNode();
 		}else{
@@ -80,7 +81,7 @@ public class ElseBlock extends BlockNode{
 		return new CompilerCommand(node, newAppendTo, false);
 	}
 
-	public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack){
+	public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack, Map<String, StartNamedBlock> blocks){
 		if( node instanceof ElseBlock){
 			addSkipNode((ElseBlock)node);
 			return new CompilerCommand(node, node, true);

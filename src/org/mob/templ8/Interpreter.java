@@ -6,15 +6,21 @@ import java.util.*;
 
 public class Interpreter{
 
-	private final Node head;
+	//private final Node head;
+	private final Template template;
 	Stack<Node> nodeStack = new Stack<Node>();
 
-	public Interpreter(Node head){
-		this.head = head;
+	public Interpreter(Template template){
+		this.template = template;
 	}
 
-	public void execute(ExecutionContext ec) throws IOException{
-		Node node = head;
+	public void execute(ExecutionContext ec, Template tmpl) throws IOException{
+		Node node;
+		if( this.template.getParent() != null ){
+			node = this.template.getParent().getHeadNode();
+		}else{
+			node = this.template.getHeadNode();
+		}
 		StringWriter sw = new StringWriter();
 		while( true ){
 			if( node == null ){
@@ -25,22 +31,40 @@ public class Interpreter{
 					if( topNode instanceof IfBlock ){
 						node = nodeStack.pop().getNextNode();
 					}else if( topNode instanceof AbstractForBlock){
-						node = topNode.execute(ec);
+						node = topNode.execute(ec, template);
 						if( node instanceof EndForBlock ){
 							node = nodeStack.pop().getNextNode();
-// 							System.out.println("going to next node: " + node);
 							continue;
 						}
 					}
 				}
 			}
+
+			if( node instanceof EndNamedBlock ){
+				node = nodeStack.pop().getNextNode();
+				continue;
+			}
 			if( node instanceof IfBlock || node instanceof AbstractForBlock ){
 				nodeStack.push(node);
 			}
+			if( node instanceof	StartNamedBlock ){
+				String blockName = ((StartNamedBlock)node).getBlockName();
+				System.out.println("my: " + this.template.getBlocks() + " " + this.template.getBlocks().get(blockName));
+				System.out.println("ps: " + this.template.getParent().getBlocks() + " " +this.template.getParent().getBlocks().get(blockName));
+
+				//if( this.template.getParent() != null ){
+				 System.out.println("pasn: " + this.template.getParent().getBlocks().get(blockName).getNextNode());
+				 System.out.println("myn: " + this.template.getBlocks().get(blockName).getNextNode());
+// 					nodeStack.push(this.template.getParent().getBlocks().get(blockName));
+// 					nodeStack.push(this.template.getBlocks().get(blockName));
+				//}else{
+					//nodeStack.push(node);
+					//nodeStack.push(this.template.getBlocks().get(((StartNamedBlock)node).getBlockName());
+				//}
+			}
 
 			if( node == null ) break;
-			node = node.execute(ec);
-// 			System.out.println("next: " + node);
+			node = node.execute(ec, template);
 		}
 		ec.flush();
 	}
@@ -73,13 +97,13 @@ public class Interpreter{
 		while( (line = br.readLine()) != null ){
 			src += line;
 		}
-		System.out.println(src);
 		Tokenizer it = new Tokenizer(src);
 		Compiler comp = new Compiler();
-		Node root = comp.compile( it.tokens() );
-		System.out.println("\n\n\n");
-		Interpreter interp = new Interpreter(root);
-		interp.execute(new ExecutionContext());
+		Template t = comp.compile( it.tokens(), null ); 
+		//Node root = comp.compile( it.tokens() );
+		//Interpreter interp = new Interpreter(root);
+		Interpreter interp = new Interpreter(t);
+		interp.execute(new ExecutionContext(), t);
 	}//}}}
 
 }

@@ -10,7 +10,9 @@ public class Compiler{
 
 	public Compiler(){}
 
- 	public Node compile(Iterable<Node> nodes) throws CompileError{
+ 	public Template compile(Iterable<Node> nodes, TemplateLoader loader) throws IOException, CompileError{
+		Template returnVal = new Template((Node)null);
+		returnVal.setTemplateLoader(loader);
  		Node root = null;
  		Node appendTo = null;
  		for( Node node : nodes ){
@@ -19,6 +21,11 @@ public class Compiler{
  				appendTo = node;
  				continue;
  			}
+
+			if( appendTo instanceof ExtendsNode ){
+				String parentName = ((ExtendsNode)appendTo).getParentName();
+				returnVal.loadParent( parentName );
+			}
 			
 			//this is a mess. refactor it into something sexy.
 			//
@@ -28,7 +35,7 @@ public class Compiler{
 			appendTo = cc.getNewAppendTo();
 			if( cc.restartLoop()) continue;
 
- 			CompilerCommand cc2 = appendTo.processCompileNodes(node, appendTo, nodeStack);
+ 			CompilerCommand cc2 = appendTo.processCompileNodes(node, appendTo, nodeStack, returnVal.getBlocks());
  			appendTo = cc2.getNewAppendTo();
  			if( cc2.restartLoop()) continue;
 
@@ -118,7 +125,10 @@ public class Compiler{
 
 		}
 		System.out.println(root);
-		return root;
+		returnVal.setHeadNode(root);
+		return returnVal;
+		//return new Template(root);
+		//return root;
 	}
 
 // 	public Node compile(Iterable<Node> nodes){
@@ -179,10 +189,11 @@ public class Compiler{
 		}
 		Tokenizer it = new Tokenizer(src);
 		Compiler comp = new Compiler();
-		Node head = comp.compile( it.tokens() );
+		Template t = comp.compile( it.tokens(), null ); 
+		//Node head = comp.compile( it.tokens() );
 
-		System.out.println( "\n\n");
-		System.out.println(head);
+		//System.out.println( "\n\n");
+		//System.out.println(head);
 		//System.out.println(head.debug());
 	}
 

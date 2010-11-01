@@ -1,7 +1,7 @@
 from org.mob.templ8 import *
 from java.io import *
 from java.util import LinkedHashMap
-tl = TemplateLoader("/home/mike/templ823/testdata")
+tl = TemplateLoader("/home/mike/templ8/testdata")
 #t = tl.getTemplate("fortest.txt")
 t = tl.getTemplate("keyvaltest.txt")
 

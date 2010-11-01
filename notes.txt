@@ -1,0 +1,27 @@
+Things to Do
+------------
+Extends/Blocks
+Calling getters and Setters on objects
+Custom functions/macros
+Logic: and/or in conditional statements
+"For-Else" blocks
+
+Bugs/Issues
+-----------
+If a block command is on a line by itself, don't print newlines.
+
+Someday
+-------
+Java class generation
+Type Safe params
+
+
+
+
+
+
+
+
+
+{% block whatever %}
+

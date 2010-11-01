@@ -21,9 +21,9 @@ public abstract class AbstractForBlock extends BlockNode{
 	}//}}}
 
 	@Override
-	public abstract Node execute(ExecutionContext ec) throws IOException;
+	public abstract Node execute(ExecutionContext ec, Template tmpl) throws IOException;
 
-	public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack){
+	public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack, Map<String, StartNamedBlock> blocks){
 		if( getExecuteNode() == null ){
 			nodeStack.push(this);
 			setExecuteNode(node);

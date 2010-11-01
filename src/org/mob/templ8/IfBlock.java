@@ -1,6 +1,7 @@
 package org.mob.templ8;
 import java.util.regex.*;
 import java.io.*;
+import java.util.*;
 
 public class IfBlock extends BlockNode{
 
@@ -35,7 +36,7 @@ public class IfBlock extends BlockNode{
 	public Node getSkipNode(){ return this.skipNode; }
 
 	@Override
-	public Node execute(ExecutionContext ec) throws IOException{//{{{
+	public Node execute(ExecutionContext ec, Template tmpl) throws IOException{//{{{
 		String tokens[] =this.expression.trim().split("\\s+") ;
 		BooleanExpressionEvaluator bee = new BooleanExpressionEvaluator(tokens); // TODO fix tokenization here
 		boolean evaluated;
@@ -57,7 +58,7 @@ public class IfBlock extends BlockNode{
 		}
 	}//}}}
 
-	public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack){//{{{
+	public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack, Map<String, StartNamedBlock> blocks){//{{{
 		if( node instanceof ElseBlock){
 			addSkipNode((ElseBlock)node);
 			return new CompilerCommand(node, node, true);

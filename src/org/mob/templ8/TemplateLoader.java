@@ -16,6 +16,7 @@ public class TemplateLoader{
 		if( this.templates.containsKey(path) ){
 			returnVal = this.templates.get(path);
 			if( returnVal != null ){
+				returnVal.setTemplateLoader(this);
 				if( returnVal.isStale() ){
 					returnVal.reload();
 				}
@@ -25,6 +26,7 @@ public class TemplateLoader{
 		if( returnVal == null ){
 			String templatePath = this.rootDirectory + "/" + path;
 			Template template = new Template(new File(templatePath));
+			template.setTemplateLoader(this);
 			template.reload();
 			this.templates.put(path, template);
 			returnVal = template;

@@ -13,7 +13,7 @@ public class ForBlock extends AbstractForBlock{
 	}
 
 	@Override
-	public Node execute(ExecutionContext ec) throws IOException{//{{{
+	public Node execute(ExecutionContext ec, Template tmpl) throws IOException{//{{{
 		Iterator it = ec.getIteratorForBlock(this);
 		if( it == null ){
 			Atom collectionAtom = AtomFactory.getAtom(collectionName);

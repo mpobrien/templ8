@@ -3,21 +3,23 @@ import java.util.regex.*;
 import java.io.*;
 import java.util.*;
 
-public class NopNode extends Node{
+public class ExtendsNode extends BlockNode{
 
-	public NopNode(){ }
+	private final String parentName;
 
-	public String toString(){
-		return "nopNode";
+	public ExtendsNode(String parentName){
+		this.parentName = parentName;
 	}
 
-	public Node execute(ExecutionContext ec, Template tmpl) throws IOException{
-		return this.getNextNode();
+	public String getParentName(){
+		return this.parentName;
 	}
-	
-	public String debug(){
-		return "nopnode";
-	}
+
+	@Override
+	public Node execute(ExecutionContext ec, Template tmpl) throws IOException{//{{{
+		return this.nextNode;
+	}//}}}
+
 
      public CompilerCommand preProcessCompileStack(Node node, Node appendTo, Stack<Node> nodeStack){
 		return CompilerCommand.identity(node, appendTo);

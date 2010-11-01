@@ -1,5 +1,6 @@
 package org.mob.templ8;
 import java.io.*;
+import java.util.*;
 
 public class EchoNode extends Node{
 
@@ -14,7 +15,7 @@ public class EchoNode extends Node{
 	}
 
 	@Override
-	public Node execute(ExecutionContext ec) throws IOException{
+	public Node execute(ExecutionContext ec, Template tmpl) throws IOException{
 		Atom atom = AtomFactory.getAtom(this.expression);
 		Object v = atom.getValue(ec);
 		if( v != null ){
@@ -27,7 +28,7 @@ public class EchoNode extends Node{
 		return CompilerCommand.identity(node, appendTo);
 	 }
 
-     public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack){
+     public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack, Map<String,StartNamedBlock> blocks){
 		this.setNextNode(node);
 		return new CompilerCommand(null, node, true);
 	 }

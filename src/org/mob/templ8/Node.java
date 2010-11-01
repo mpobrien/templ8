@@ -1,4 +1,5 @@
 package org.mob.templ8;
+import java.util.*;
 import java.util.regex.*;
 import java.io.*;
 
@@ -16,7 +17,7 @@ public abstract class Node{
 	}
 	public Node getNextNode(){return this.nextNode;}
 
-	public abstract Node execute(ExecutionContext ec) throws IOException;
+	public abstract Node execute(ExecutionContext ec, Template templ) throws IOException;
 
 // 	public abstract String debug();
 
@@ -32,6 +33,6 @@ public abstract class Node{
 		 return new CompilerCommand(node, appendTo, false);
 	 }
 
-     public abstract CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack);
+     public abstract CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack, Map<String, StartNamedBlock> blocks);
 
 }

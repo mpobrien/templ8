@@ -1,5 +1,6 @@
 package org.mob.templ8;
 import java.util.regex.*;
+import java.util.*;
 import java.io.*;
 
 public class EndIfBlock extends BlockNode{
@@ -9,7 +10,7 @@ public class EndIfBlock extends BlockNode{
 	public void appendNode(Node n){} //does nothing in this case.
 
 	@Override
-	public Node execute(ExecutionContext ec) throws IOException{
+	public Node execute(ExecutionContext ec, Template tmpl) throws IOException{
 		return this.getNextNode();
 	}
 
@@ -20,7 +21,7 @@ public class EndIfBlock extends BlockNode{
 		return new CompilerCommand(node, newAppendTo, true);
 	}
 
-	public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack){
+	public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack, Map<String, StartNamedBlock> blocks){
 		//should never happen!
 		return null;
 // 		this.setNextNode(node);

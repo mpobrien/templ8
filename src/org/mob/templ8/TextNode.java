@@ -1,5 +1,6 @@
 package org.mob.templ8;
 import java.util.regex.*;
+import java.util.*;
 import java.io.*;
 
 public class TextNode extends Node{
@@ -15,7 +16,7 @@ public class TextNode extends Node{
 	}
 
 	@Override
-	public Node execute(ExecutionContext ec) throws IOException{
+	public Node execute(ExecutionContext ec, Template tmpl) throws IOException{
 		ec.write(this.text);
 		return this.getNextNode();
 	}
@@ -24,7 +25,7 @@ public class TextNode extends Node{
 		return CompilerCommand.identity(node, appendTo);
 	 }
 
-     public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack){
+     public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack, Map<String, StartNamedBlock> blocks){
 		this.setNextNode(node);
 		return new CompilerCommand(null, node, true);
 	 }

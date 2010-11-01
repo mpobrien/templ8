@@ -10,10 +10,14 @@ public class BlockFactory{
 	private static final String BLOCK_ENDIF  = "endif";        
 	private static final String BLOCK_FOR    = "for";        
 	private static final String BLOCK_ENDFOR = "endfor";        
+	private static final String BLOCK_NAMEDBLOCK = "block";        
+	private static final String BLOCK_ENDNAMEDBLOCK = "block";        
+	private static final String BLOCK_EXTENDS = "extends";        
 
 	private static final Pattern FOR_PATTERN = Pattern.compile("\\s*for\\s+(\\w+)\\s+in\\s+(\\w+)\\s*");
 	private static final Pattern FOR_KV_PATTERN = Pattern.compile("\\s*for\\s+(\\w+)\\s*,\\s*(\\w+)\\s+in\\s+(\\w+)\\s*");
 	private static final Pattern IF_PATTERN = Pattern.compile("\\s*(if)\\s*(.*)\\s*");
+	private static final Pattern BLOCK_PATTERN = Pattern.compile("\\s*(block)\\s*(.*)\\s*");
  //Pattern.compile("\\s*for\\s+(\\w+)in\\s+(.+)\\s*");
 
     public static BlockNode create(String blockText){//{{{
@@ -43,6 +47,14 @@ public class BlockFactory{
 			}
 		}else if( blockType.equals(BLOCK_ENDFOR) ){
 			return new EndForBlock();
+		}else if( blockType.equals(BLOCK_NAMEDBLOCK) ){
+			if( elements.length != 2 ) return null; // badly formed block
+			return new StartNamedBlock(elements[1]);
+		}else if( blockType.equals(BLOCK_ENDNAMEDBLOCK) ){
+			return new EndNamedBlock();
+		}else if( blockType.equals(BLOCK_EXTENDS) ){
+			if( elements.length != 2 ) return null; // badly formed block
+			return new ExtendsNode(elements[1]);
 		}
 		return null; //TODO
 	}//}}}

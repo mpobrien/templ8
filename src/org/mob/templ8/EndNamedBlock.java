@@ -3,9 +3,9 @@ import java.util.regex.*;
 import java.util.*;
 import java.io.*;
 
-public class EndForBlock extends BlockNode{
+public class EndNamedBlock extends BlockNode{
 
-	public EndForBlock(){ }
+	public EndNamedBlock(){ }
 
 	public void appendNode(Node n){} //does nothing in this case.
 
