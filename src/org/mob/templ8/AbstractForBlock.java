@@ -25,10 +25,12 @@ public abstract class AbstractForBlock extends BlockNode{
 
 	public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack, Map<String, StartNamedBlock> blocks){
 		if( getExecuteNode() == null ){
+			System.out.println("y2");
 			nodeStack.push(this);
 			setExecuteNode(node);
 			return new CompilerCommand(node, node, false);
 		}else{
+			System.out.println("y3");
 			setNextNode(node);
 			return new CompilerCommand(node, node, false);
 		}

@@ -9,9 +9,9 @@ for i in range(0,5):
     sw = StringWriter()
     ec = ExecutionContext(sw)
     xs = LinkedHashMap();
-    xs.put("mike", 1)
-    xs.put("bob", 2)
-    xs.put("joe", 3)
+#     xs.put("mike", 1)
+#     xs.put("bob", 2)
+#     xs.put("joe", 3)
     ec.setObject("xs", xs);
     t.execute(ec)
     print "\n\n" + sw.toString()

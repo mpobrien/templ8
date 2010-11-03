@@ -21,10 +21,14 @@ public class Interpreter{
 		}else{
 			node = this.template.getHeadNode();
 		}
+		System.out.println("1:" +this.template.getHeadNode());
+		//System.out.println("2: "+this.template.getParent().getHeadNode());
 		StringWriter sw = new StringWriter();
 		while( true ){
+			System.out.println("Executing: " + node);
 			if( node == null ){
 				if( nodeStack.getSize() == 0 ){
+					System.out.println("done");
 					break;
 				}else{
 					Node topNode = nodeStack.peek();
@@ -36,31 +40,24 @@ public class Interpreter{
 							node = nodeStack.pop().getNextNode();
 							continue;
 						}
-					}
+					} else if ( topNode instanceof StartNamedBlock ){
+						node = nodeStack.pop().getNextNode();
+						System.out.println("ok now: " +node);
+						continue;
+					} 
 				}
 			}
 
-			if( node instanceof EndNamedBlock ){
-				node = nodeStack.pop().getNextNode();
-				continue;
-			}
 			if( node instanceof IfBlock || node instanceof AbstractForBlock ){
 				nodeStack.push(node);
 			}
 			if( node instanceof	StartNamedBlock ){
 				String blockName = ((StartNamedBlock)node).getBlockName();
-				System.out.println("my: " + this.template.getBlocks() + " " + this.template.getBlocks().get(blockName));
-				System.out.println("ps: " + this.template.getParent().getBlocks() + " " +this.template.getParent().getBlocks().get(blockName));
-
-				//if( this.template.getParent() != null ){
-				 System.out.println("pasn: " + this.template.getParent().getBlocks().get(blockName).getNextNode());
-				 System.out.println("myn: " + this.template.getBlocks().get(blockName).getNextNode());
-// 					nodeStack.push(this.template.getParent().getBlocks().get(blockName));
-// 					nodeStack.push(this.template.getBlocks().get(blockName));
-				//}else{
-					//nodeStack.push(node);
-					//nodeStack.push(this.template.getBlocks().get(((StartNamedBlock)node).getBlockName());
-				//}
+				if( this.template.getParent() != null ){
+ 					nodeStack.push(this.template.getParent().getBlocks().get(blockName));
+				}else{
+					nodeStack.push(node);
+				}
 			}
 
 			if( node == null ) break;
@@ -92,18 +89,32 @@ public class Interpreter{
 // 	}//}}}
 
 	public static void main(String args[]) throws Exception{//{{{
-		BufferedReader br = new BufferedReader(new FileReader(new File(args[0])));
-		String line = null, src = "";
-		while( (line = br.readLine()) != null ){
-			src += line;
-		}
-		Tokenizer it = new Tokenizer(src);
-		Compiler comp = new Compiler();
-		Template t = comp.compile( it.tokens(), null ); 
-		//Node root = comp.compile( it.tokens() );
-		//Interpreter interp = new Interpreter(root);
-		Interpreter interp = new Interpreter(t);
-		interp.execute(new ExecutionContext(), t);
+		String rootDir = args[0];
+		String templateName = args[1];
+		TemplateLoader tl = new TemplateLoader(rootDir);
+		Template t = tl.getTemplate(templateName);
+		StringWriter sw = new StringWriter();
+		ExecutionContext ec = new ExecutionContext(sw);
+		LinkedHashMap xs = new LinkedHashMap();
+		xs.put("mike", 1);
+		xs.put("bob", 2);
+		xs.put("joe", 3);
+		ec.setObject("xs", xs);
+		t.execute(ec);
+
+		System.out.println(sw.toString());
+// 		BufferedReader br = new BufferedReader(new FileReader(new File(args[0])));
+// 		String line = null, src = "";
+// 		while( (line = br.readLine()) != null ){
+// 			src += line;
+// 		}
+// 		Tokenizer it = new Tokenizer(src);
+// 		Compiler comp = new Compiler();
+// 		Template t = comp.compile( it.tokens(), null ); 
+// 		//Node root = comp.compile( it.tokens() );
+// 		//Interpreter interp = new Interpreter(root);
+// 		Interpreter interp = new Interpreter(t);
+// 		interp.execute(new ExecutionContext(), t);
 	}//}}}
 
 }

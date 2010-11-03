@@ -11,7 +11,7 @@ public class BlockFactory{
 	private static final String BLOCK_FOR    = "for";        
 	private static final String BLOCK_ENDFOR = "endfor";        
 	private static final String BLOCK_NAMEDBLOCK = "block";        
-	private static final String BLOCK_ENDNAMEDBLOCK = "block";        
+	private static final String BLOCK_ENDNAMEDBLOCK = "endblock";        
 	private static final String BLOCK_EXTENDS = "extends";        
 
 	private static final Pattern FOR_PATTERN = Pattern.compile("\\s*for\\s+(\\w+)\\s+in\\s+(\\w+)\\s*");
