@@ -40,14 +40,11 @@ public class StartNamedBlock extends BlockNode{
      public CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack, Map<String, StartNamedBlock> blocks){
 		 //TODO check for duplicate key?
 		blocks.put(this.blockName, this);
-		System.out.println("x1");
 		if( getExecuteNode() == null ){
-			System.out.println("x2");
 			nodeStack.push(this);
 			setExecuteNode(node);
 			return new CompilerCommand(node, node, false);
 		}else{
-			System.out.println("x3");
 			setNextNode(node);
 			return new CompilerCommand(node, node, false);
 		}

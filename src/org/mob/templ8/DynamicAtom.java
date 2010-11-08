@@ -2,14 +2,25 @@ package org.mob.templ8;
 import java.io.*;
 import java.util.*;
 
-public class VarAtom extends Atom{
+public class DynamicAtom extends Atom{
+
+    //enum AtomDirective{
+		//INDEX_LOOKUP, METHOD_CALL;
+		//private final Atom atom;
+		//AtomDirective(Atom atom){
+			//this.atom = atom;
+		//}
+		//public Atom getAtom(){
+			//return this.atom;
+		//}
+	//}
 
     private final String varName;
 
-	// name --> callmethod(methodname) --> lookup(key) --> 
-	private final LinkedList directives;
+	//// name --> callmethod(methodname) --> lookup(key) --> 
+	//private final LinkedList<AtomDirective> directives;
 
-    public VarAtom(String varName){
+	public DynamicAtom(String varName){
 		this.varName = varName;
 	}
 
@@ -18,6 +29,9 @@ public class VarAtom extends Atom{
 		return ec.getObject(this.varName);
 	}
 
+	//public void pushDirective( AtomDirective atomdirective){
+		//this.directives.add( atomdirective );
+	//}
 
 
 	

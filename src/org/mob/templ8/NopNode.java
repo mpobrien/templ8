@@ -5,6 +5,8 @@ import java.util.*;
 
 public class NopNode extends Node{
 
+    public Integer x = 2;
+
 	public NopNode(){ }
 
 	public String toString(){
