@@ -4,14 +4,21 @@ import java.io.*;
 
 public class TemplateLoader{
 
-    private final String rootDirectory;
+    private String rootDirectory = null;
 	private Map<String, Template> templates = new HashMap<String, Template>();
+
+	public TemplateLoader(){}
 
     public TemplateLoader(String rootDirectory){ // change the name.
         this.rootDirectory = rootDirectory;
     }
 
+	public void setRootDirectory(String rootDirectory){
+        this.rootDirectory = rootDirectory;
+	}
+
 	public Template getTemplate(String path) throws IOException, CompileError{
+		if( rootDirectory == null ) throw new IOException("template loader root path is not set.");
 		Template returnVal = null;
 		if( this.templates.containsKey(path) ){
 			returnVal = this.templates.get(path);

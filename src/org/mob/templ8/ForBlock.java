@@ -31,7 +31,6 @@ public class ForBlock extends AbstractForBlock{
 		if( it.hasNext() ){
 			Object o = it.next();
 			ec.setObject(varName, o);
-			System.out.println("returning: " + this.executeNode);
 			return this.executeNode;
 		}else{
 			ec.terminateForBlockIterator(this);

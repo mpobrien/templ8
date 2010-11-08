@@ -124,7 +124,6 @@ public class Compiler{
 // 			}
 
 		}
-		System.out.println(root);
 		returnVal.setHeadNode(root);
 		return returnVal;
 		//return new Template(root);

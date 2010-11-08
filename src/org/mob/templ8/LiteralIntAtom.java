@@ -15,4 +15,7 @@ public class LiteralIntAtom extends Atom{
 		return this.val;
 	}
 
+	public String toString(){
+		return "Int Literal: \"" + this.val.toString() + "\"";
+	}
 }

@@ -21,14 +21,11 @@ public class Interpreter{
 		}else{
 			node = this.template.getHeadNode();
 		}
-		System.out.println("1:" +this.template.getHeadNode());
 		//System.out.println("2: "+this.template.getParent().getHeadNode());
 		StringWriter sw = new StringWriter();
 		while( true ){
-			System.out.println("Executing: " + node);
 			if( node == null ){
 				if( nodeStack.getSize() == 0 ){
-					System.out.println("done");
 					break;
 				}else{
 					Node topNode = nodeStack.peek();
@@ -42,7 +39,6 @@ public class Interpreter{
 						}
 					} else if ( topNode instanceof StartNamedBlock ){
 						node = nodeStack.pop().getNextNode();
-						System.out.println("ok now: " +node);
 						continue;
 					} 
 				}

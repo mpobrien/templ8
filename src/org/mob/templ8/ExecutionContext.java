@@ -5,12 +5,16 @@ import java.util.*;
 public class ExecutionContext{
 
     private Writer outputWriter;
-	private Map<String, Object> objects = new HashMap<String, Object>();
+	private Map<String,Object> objects = new HashMap<String, Object>();
 	private Map<AbstractForBlock, Iterator> loops = new HashMap<AbstractForBlock, Iterator>();
 
 	public ExecutionContext(Writer outputWriter){//{{{
 		this.outputWriter = outputWriter;
 	}//}}}
+
+    public void setObjectsFromMap(Map<String,Object> objects){
+		this.objects = objects;
+	}
 
 	public ExecutionContext(){//{{{
 		this.outputWriter = new PrintWriter(System.out);

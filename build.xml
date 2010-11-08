@@ -30,7 +30,7 @@
     </target>
 
     <target name="jar" depends="compile">
-        <jar destfile="${release.dir}/templ8.jar" basedir="." includes="**/*.class" />
+        <jar destfile="${release.dir}/templ8.jar" basedir="${classes.dir}" includes="**/*.class" />
     </target>
     <!--target name="runserver">
         <java classname="com.mob.bootstrap.Jetty">

@@ -5,6 +5,16 @@ import java.util.regex.*;
 
 public class AtomFactory{
 
+	// atom = NUM_LITERAL | STRING LITERAL | VARNAME | VARNAME[ATOM] 
+
+	//  2
+	//  'asdc'
+	//  foo
+	//  bar[_]
+	//  foo.x.y
+	//  foo.
+	//
+
 	private static final String numericAtom = "\\d+";
 	private static final Pattern stringAtom =  Pattern.compile("^\'(.*)\'$");
 	private static final Pattern collectionAtom =  Pattern.compile("(\\w+)\\[(.+)\\]");
@@ -29,5 +39,14 @@ public class AtomFactory{
 		}
 	}
 
+	//
+	// while char:
+	// if char = ':
+	//    walk until ', capture contents, return stringliteral
+	// if char = \w:
+	//     walk until [ or ., capture contents, return property but:
+	//	      if next part is [] make it a map/collection lookup, get contents of [] for key
+	//	      if next part is . make it property lookup
+	
 
 }

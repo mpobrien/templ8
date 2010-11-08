@@ -34,7 +34,6 @@ public class BlockFactory{
 		} else if( blockType.equals(BLOCK_FOR) ){
 			Matcher m = FOR_PATTERN.matcher(blockText);
 			if( m.matches() ){
-				System.out.println("UEAR");
 				return new ForBlock(m.group(1), m.group(2) );
 			}else{
 				Matcher m2 = FOR_KV_PATTERN.matcher(blockText);

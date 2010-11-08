@@ -84,9 +84,19 @@ public class BooleanExpressionEvaluator extends ExpressionEvaluator{
 				if( leftVal == null && rightVal == null ) return false; //both are null
 				if( leftVal == null || rightVal == null ) return true; //one is null, the other is not.
 				return !leftVal.equals(rightVal); //both are non-null.
+ 			}else if ( op.equals("in") ){
+				Object leftVal = leftAtom.getValue(ec);
+				Object rightVal = rightAtom.getValue(ec);
+				if( leftVal == null || rightVal == null ) return false;
+				if( rightVal instanceof Collection ){
+					return ((Collection)rightVal).contains(leftVal);
+				}else if( rightVal instanceof Map ){
+					return ((Map)rightVal).containsKey(leftVal);
+				}else{
+					throw new Exception("value on right side of 'in' operator must be a collection or a map.");
+				}
 			}else{
-				System.out.println("unknown op:");
-				return false; //TODO wtf
+				throw new Exception("unknown operator");
 			}
 		}else{
 			System.out.println("bad tokens");

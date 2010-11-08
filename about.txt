@@ -1,0 +1,75 @@
+--------------
+Goals:
+Template should be as clean as possible, readable. 
+Should integrate well with java bean conventions (getters).
+
+////////VARIABLES
+
+Access elements in a list by index (must be an integer):
+{{ names[i] }}
+
+Access elements in a map by key:
+{{ usernames['Jim'] }}
+
+Access properties on an object using Java bean (getter) conventions:
+{{ user.userId }} //this will call user.getUserId()
+
+/////////LOOPS
+
+Loop over any java object that implements Iterable with 'for' blocks:
+<ul>
+{% for name in users %}
+    <li>{{ name }}</li>
+{% endfor %}
+</ul>
+
+You can also iterate over a map, binding both the map's keys and values inside the block:
+<ul>
+{% for key, value in data_map %}
+    <li>{{ key }} : {{ value }}</li>
+{% endfor %}
+</ul>
+
+Use if-blocks to write the contents if a condition is satisfied. You can use elseif/else blocks to test for alternate conditions:
+
+{% if x == 0 %}
+     x is 0.
+{% elseif x == 1 %}
+     x is 1.
+{% else %}
+     x is... not 0 or 1.
+{% endif %}
+
+Conditions:
+- Equality/Inequality: == != < > <= >=
+
+You can also test with a simple variable name:
+{% if names %} ... {% endif %}
+If the variable evaluates to a collection, it will test if the collection is empty or not. 
+If the variable is a String, it will evaluate to "true" if the string has length > 0.
+If the variable is an Integer, it will evaluate to true if the Integer is non-zero.
+In all other cases, the expression will evaluate to true of the variable is not-null.
+
+Test if a value exists in a set, or if a key exists in a map:
+{% if x in xs %} ... {% endif %}
+
+-----------------------------------------------
+Inheritance:
+Works very similar to Django's inheritance system.
+Define blocks in a parent template using:
+
+some text.
+{% block header %}
+parent block contents!!
+{% endblock %}
+
+In another template, reference the parent using extends:
+
+{% extends parent.html %}
+{% block header %}
+child block contents!!
+{% endblock %}
+
+The parent template will be evaluated, but replacing each block with the version defined in the child template. If the child is missing any block, it will default back to evaluating the parent block.
+
+
