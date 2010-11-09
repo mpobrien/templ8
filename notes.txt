@@ -5,7 +5,9 @@ Custom functions/macros
 Logic: and/or in conditional statements
 "include" directive
 "For-Else" blocks
+ternary syntax
 //Extends/Blocks DONE
+DATA block
 
 Bugs/Issues
 -----------

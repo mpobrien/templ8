@@ -2,7 +2,10 @@ import sys
 from org.mob.templ8 import *
 from java.io import *
 from java.util import LinkedHashMap
-tl = TemplateLoader("/home/mike/templ8/testdata")
+
+
+tl = TemplateLoader("/Users/michaelobrien/projects/templ8/testdata")
+#tl = TemplateLoader("/home/mike/templ8/testdata")
 #t = tl.getTemplate("fortest.txt")
 t = tl.getTemplate("blocktest2.html")
 sw = StringWriter()

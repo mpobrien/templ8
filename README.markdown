@@ -1,34 +1,37 @@
 Goals:
 ======
-Templates should be simple, clean, readable.
-Should integrate well with java bean conventions.
+Templates should be simple, clean, and readable.
+Tight integration with the java Map, Set, Iterable, List, Collection paradigm is high priority.
+Java Bean conventional syntax can be implicitly used.
 
 Variables
 ========
 
+Use {{ ... }} to evaluate an expression and write the result to the output.
+
 Access elements in a List by index (must be an integer):
     {{ names[i] }}
 
-Access elements in a map by key:
+Access elements in a map by key (any object type can be used as a key):
     {{ usernames['Jim'] }}
 
 Access properties on an object using Java bean (getter) conventions:
     {{ user.userId }} //this will call user.getUserId()
 
 You can mix and nest these lookups as deep as you want, for example:
-    {{ users[loggedInUser.userId].info.firstName }}
+    {{ users[loggedInUser.userId].info.firstName }} // equivalent to users.get(loggedInUser.getUserId()).getInfo().getFirstName())
 
 Iterables
 ========
 
-Loop over any java object that implements Iterable with 'for' blocks:
+Loop over any java object that implements `Iterable` with `for` blocks:
     <ul>
     {% for name in users %}
         <li>{{ name }}</li>
     {% endfor %}
     </ul>
 
-You can also iterate over any object that implements java.util.Map, binding the key/value pairs to variables inside the contents of the block:
+You can also iterate over any object that implements java.util.Map, while binding the key and value of each pair to variables inside the contents of the block:
     <ul>
     {% for key, value in dataMap %}
         <li>{{ key }} : {{ value }}</li>
@@ -108,3 +111,7 @@ The output rendered from this example will be:
     </div>
 
 
+And...
+=====
+
+lots more to come.

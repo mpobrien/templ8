@@ -40,6 +40,9 @@ public class BooleanExpressionEvaluator extends ExpressionEvaluator{
 			}else if( o instanceof Integer ){
 				return !((Integer)o).equals(0);
 			}else{
+				if( o instanceof Collection ){
+					return !((Collection)o).isEmpty();
+				}
 				return true;
 			}
 		}else if( rightSide != null && op != null && leftSide != null ){
