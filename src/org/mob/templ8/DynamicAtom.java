@@ -4,21 +4,10 @@ import java.util.*;
 
 public class DynamicAtom extends Atom{
 
-    //enum AtomDirective{
-		//INDEX_LOOKUP, METHOD_CALL;
-		//private final Atom atom;
-		//AtomDirective(Atom atom){
-			//this.atom = atom;
-		//}
-		//public Atom getAtom(){
-			//return this.atom;
-		//}
-	//}
-
     private final String varName;
 
 	//// name --> callmethod(methodname) --> lookup(key) --> 
-	//private final LinkedList<AtomDirective> directives;
+	private final LinkedList<DynamicLookup> lookups = new LinkedList<DynamicLookup>();
 
 	public DynamicAtom(String varName){
 		this.varName = varName;
@@ -26,14 +15,16 @@ public class DynamicAtom extends Atom{
 
 	@Override
 	public Object getValue(ExecutionContext ec){
-		return ec.getObject(this.varName);
+		Object o = ec.getObject(this.varName);
+		for( DynamicLookup lookup : lookups){
+			if( o == null ) return null;
+			o = lookup.getValue(o, ec);
+		}
+		return o;
 	}
 
-	//public void pushDirective( AtomDirective atomdirective){
-		//this.directives.add( atomdirective );
-	//}
-
-
-	
+	public void addLookup( DynamicLookup lookup){
+		this.lookups.add( lookup );
+	}
 
 }
