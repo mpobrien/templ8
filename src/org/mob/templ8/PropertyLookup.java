@@ -1,6 +1,7 @@
 package org.mob.templ8;
 import java.io.*;
 import java.util.*;
+import java.lang.reflect.Method;
 import org.apache.commons.beanutils.PropertyUtils;
 
 public class PropertyLookup implements DynamicLookup{
@@ -13,7 +14,15 @@ public class PropertyLookup implements DynamicLookup{
 		try{
 			return PropertyUtils.getSimpleProperty(from, name);
 		}catch(Exception e){ //TODO FIX THIS
-			throw new RuntimeException("couldn't get property value"); // TODO use a better exception here.
+			try{
+				Class[] paramTypes = null;
+				Object[] paramVals = null;
+				Method method = from.getClass().getMethod(name, paramTypes);
+				return method.invoke(from, paramVals);
+			}catch(Exception f){
+				f.printStackTrace();
+				throw new RuntimeException("couldn't get property value"); // TODO use a better exception here.
+			}
 		}
 	}//}}}
 

@@ -14,10 +14,15 @@ public class EndForBlock extends BlockNode{
 		return this.getNextNode();
 	}
 
-	public CompilerCommand preProcessCompileStack(Node node, Node appendTo, Stack<Node> nodeStack){
-		//TODO check node type!
-		//TODO check stack non-empty!
+	public CompilerCommand preProcessCompileStack(Node node, Node appendTo, Stack<Node> nodeStack) throws CompileError{
+		if( nodeStack.isEmpty() ){
+			throw new CompileError("endfor without matching for block", this);
+		}
+
 		Node newAppendTo = nodeStack.pop();
+		if( !(newAppendTo instanceof AbstractForBlock) ){
+			throw new CompileError("endfor without matching for block", this);
+		}
 		return new CompilerCommand(node, newAppendTo, true);
 	}
 

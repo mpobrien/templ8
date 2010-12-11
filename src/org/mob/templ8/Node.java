@@ -29,10 +29,10 @@ public abstract class Node{
 		this.lineNumber = lineNumber;
 	}
 
-     public CompilerCommand preProcessCompileStack(Node node, Node appendTo, Stack<Node> nodeStack){
+     public CompilerCommand preProcessCompileStack(Node node, Node appendTo, Stack<Node> nodeStack) throws CompileError{
 		 return new CompilerCommand(node, appendTo, false);
 	 }
 
-     public abstract CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack, Map<String, StartNamedBlock> blocks);
+     public abstract CompilerCommand processCompileNodes(Node node, Node appendTo, Stack<Node> nodeStack, Map<String, StartNamedBlock> blocks) throws CompileError;
 
 }

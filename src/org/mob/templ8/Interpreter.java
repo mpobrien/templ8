@@ -14,7 +14,7 @@ public class Interpreter{
 		this.template = template;
 	}
 
-	public void execute(ExecutionContext ec, Template tmpl) throws IOException{
+	public void execute(ExecutionContext ec, Template tmpl) throws IOException, CompileError{
 		Node node;
 		if( this.template.getParent() != null ){
 			node = this.template.getParent().getHeadNode();

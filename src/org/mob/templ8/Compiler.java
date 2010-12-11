@@ -39,95 +39,13 @@ public class Compiler{
  			appendTo = cc2.getNewAppendTo();
  			if( cc2.restartLoop()) continue;
 
-// 			if( node instanceof EndForBlock ){
-// 				appendTo = nodeStack.pop();
-// 				System.out.println("endfor pop appendTo: " +  appendTo);
-// 				continue;
-// 			} else if( node instanceof ElseBlock ){
-// 				appendTo = nodeStack.peek();
-// 				//TODO check that appendTo is the right type of node!
-// 			}else if ( node instanceof EndIfBlock ){
-// 				appendTo = nodeStack.pop();
-// 				//TODO check that appendTo is the right type of node!
-// 				continue;
-// 			}
-
-// 			if( appendTo instanceof ElseBlock ){
-// 				ElseBlock elseblock = (ElseBlock)appendTo;
-// 				if( node instanceof ElseBlock ){
-// 					elseblock.setSkipNode((ElseBlock)node);
-// 					appendTo = node;
-// 					continue;
-// 				}else if( node instanceof EndIfBlock ){
-// 					appendTo = nodeStack.pop();
-// 					System.out.println("popped, " + appendTo);
-// 					continue;
-// 				}
-// 
-// 				if( elseblock.getExecuteNode() == null ){
-// 					elseblock.setExecuteNode(node);
-// 					appendTo = node;
-// 					continue;
-// 				}else{
-// 					elseblock.setNextNode(node);
-// 					appendTo = node;
-// 				}
-// 			}
-// 
-// 			if( appendTo instanceof IfBlock ){
-// 				IfBlock ifblock = (IfBlock)appendTo;
-// 				if( node instanceof ElseBlock ){
-// 					ifblock.setSkipNode((ElseBlock)node);
-// 					appendTo = node;
-// 					continue;
-// 				}else if( node instanceof EndIfBlock ){
-// 					appendTo = nodeStack.pop();
-// 					continue;
-// 				}
-// 
-// 				if( ifblock.getExecuteNode() == null ){
-// 					nodeStack.push(ifblock);
-// 					ifblock.setExecuteNode(node);
-// 					appendTo = node;
-// 				}else{
-// 					ifblock.setNextNode(node);
-// 					appendTo = node;
-// 				}
-// 				continue;
-// 			} else if( appendTo instanceof AbstractForBlock ){
-// 				AbstractForBlock forblock = (AbstractForBlock)appendTo;
-// 				if( forblock.getExecuteNode() == null ){
-// 					nodeStack.push(forblock);
-// 					forblock.setExecuteNode(node);
-// 					appendTo = node;
-// 				}else{
-// 					forblock.setNextNode(node);
-// 					appendTo = node;
-// 				}
-// 			} else{
-// 				appendTo.setNextNode(node);
-// 				appendTo = node;
-// 				continue;
-// 			}
-// 
-// 			System.out.println("mob4 " + node + " appendto " + appendTo);
-// 
-// 			if( node instanceof EndIfBlock || node instanceof ElseBlock ){
-// 				if( nodeStack.getSize() == 0 ){
-// 					throw new CompileError("endif without matching if");
-// 				}
-// 				appendTo = nodeStack.pop();
-// 				if( !(appendTo instanceof IfBlock ) ){
-// 					throw new CompileError("wrong closing block");
-// 				}
-// 				continue;
-// 			}
-
 		}
 		returnVal.setHeadNode(root);
+		if( !nodeStack.isEmpty() ){
+			Node lastNode = nodeStack.peek();
+			throw new CompileError("Unclosed block", lastNode);
+		}
 		return returnVal;
-		//return new Template(root);
-		//return root;
 	}
 
 // 	public Node compile(Iterable<Node> nodes){

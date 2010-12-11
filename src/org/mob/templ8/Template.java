@@ -34,13 +34,19 @@ public class Template{
 	public void loadParent(String parentName) throws CompileError,IOException{
 		this.parentName = parentName;
 		if( this.parentName != null ){
-			System.out.println("mine: " + this.blocks);
 			this.parent = this.loader.getTemplate(this.parentName);
-			System.out.println("parents: " + this.parent.getBlocks());
 		}
 	}
 
-	public Template getParent(){ return this.parent; }
+	public Template getParent() throws IOException, CompileError{ 
+		if( this.parentName != null ){
+			this.parent = this.loader.getTemplate(this.parentName);
+			return this.parent;
+		}else{
+			return null;
+		}
+		//return this.parent; 
+	}
 
  	public void reload() throws IOException, CompileError{//{{{
  		if( this.file != null ){
@@ -85,7 +91,7 @@ public class Template{
 		this.headNode = headNode;
 	}
 
-	public void execute(ExecutionContext ec) throws IOException{
+	public void execute(ExecutionContext ec) throws IOException, CompileError{
 		//Interpreter interp = new Interpreter(this.headNode);
 		Interpreter interp = new Interpreter(this);
 		interp.execute(ec, this);

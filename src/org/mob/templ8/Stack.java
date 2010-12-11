@@ -30,5 +30,9 @@ public class Stack<T> {
 		return this.topIndex + 1;
 	}
 
+	public boolean isEmpty(){
+		return this.getSize() == 0;
+	}
+
 }
 

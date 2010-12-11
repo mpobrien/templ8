@@ -28,25 +28,10 @@ public class AtomFactory{
 			return new LiteralIntAtom( new Integer(atomText) );
 		}else if( m.matches() ){
 			return new LiteralStringAtom(m.group(1));
-		}else if( collectionM.matches() ){
-			String keyString = collectionM.group(2);
-			Atom keyAtom = getAtom(keyString);
-			return new CollectionAtom(collectionM.group(1), keyAtom);
-		}else if(atomText.matches(varAtom)){
-			return new VarAtom(atomText);
 		}else{
-			return null;
+			Atomizer atomFinder = new Atomizer();
+			return atomFinder.getDirective(atomText.trim(), 0);
 		}
 	}
-
-	//
-	// while char:
-	// if char = ':
-	//    walk until ', capture contents, return stringliteral
-	// if char = \w:
-	//     walk until [ or ., capture contents, return property but:
-	//	      if next part is [] make it a map/collection lookup, get contents of [] for key
-	//	      if next part is . make it property lookup
-	
 
 }
