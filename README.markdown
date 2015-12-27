@@ -1,4 +1,4 @@
-Goals:
+Goals
 ======
 Templates should be simple, clean, and readable.
 Tight integration with the java Map, Set, Iterable, List, Collection paradigm is high priority.
