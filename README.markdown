@@ -7,31 +7,36 @@ Java Bean conventional syntax can be implicitly used.
 Variables
 ========
 
-Use {{ ... }} to evaluate an expression and write the result to the output.
+Use `{{ ... }}` to evaluate an expression and write the result to the output.
 
 Access elements in a List by index (must be an integer):
-    {{ names[i] }}
+    `{{ names[i] }}`
 
 Access elements in a map by key (any object type can be used as a key):
-    {{ usernames['Jim'] }}
+    `{{ usernames['Jim'] }}`
 
 Access properties on an object using Java bean (getter) conventions:
+
     {{ user.userId }} //this will call user.getUserId()
 
 You can mix and nest these lookups as deep as you want, for example:
-    {{ users[loggedInUser.userId].info.firstName }} // equivalent to users.get(loggedInUser.getUserId()).getInfo().getFirstName())
+
+    {{ users[loggedInUser.userId].info.firstName }} 
+    // this is equivalent to `users.get(loggedInUser.getUserId()).getInfo().getFirstName())
 
 Iterables
 ========
 
 Loop over any java object that implements `Iterable` with `for` blocks:
-    <ul>
-    {% for name in users %}
-        <li>{{ name }}</li>
-    {% endfor %}
-    </ul>
+
+     <ul>
+     {% for name in users %}
+         <li>{{ name }}</li>
+     {% endfor %}
+     </ul>
 
 You can also iterate over any object that implements java.util.Map, while binding the key and value of each pair to variables inside the contents of the block:
+
     <ul>
     {% for key, value in dataMap %}
         <li>{{ key }} : {{ value }}</li>
@@ -61,13 +66,17 @@ Collection Membership:
     Checks if an object is present in the collection.
     For a Set or List object, this condition is the equivalent of calling `xs.contains(x)`.
     For a Map, it's the equivalent of checking for the key, i.e. a call to `xs.containsKey(x)`
+    
+    ```
     {% if x in xs %} 
         ... 
     {% endif %}
+    ```
 
 Variable Test:
 Any variable can be used directly as a condition, for example:
-    {% if names %} ... {% endif %}
+    
+    `{% if names %} ... {% endif %}`
 
 The condition will be evaluated according to the following rules:
 * If it evaluates to a collection, it will test if the collection is empty or not. 
